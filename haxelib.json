@@ -7,7 +7,7 @@
   "version": "0.0.1",
   "releasenote": "",
   "contributors": ["wighawag"],
-  "dependencies": {"openfl":"1.0.4", "stage3d-glsl-wrapper":"0.0.2"},
+  "dependencies": {"openfl":"1.0.4", "stage3d-glsl":"0.0.2"},
   "classPath":"src",
   "targets":["cpp"]
 }

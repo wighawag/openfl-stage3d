@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension>
+ <set name="SWF_VERSION" value="11.6" ></set> <!--not sure if we should set it here -->
+<haxeflag name="-swf-lib" value="glsl2agal.swf" if="flash" />
+<haxedef name="glsl2agal" if="flash" /> <!-- not sure if we should set it by default -->
+
+<haxeflag name="-swf-lib" value="agalminiassembler.swf" if="flash"/>
+
+</extension>

@@ -237,6 +237,8 @@ class Context3D
    {
       drawing = false;
       GL.useProgram(null);
+	  
+	  GL.bindBuffer(GL.ARRAY_BUFFER, null);
    }
 
    // TODO: Type as Context3DBlendFactor instead of Int?

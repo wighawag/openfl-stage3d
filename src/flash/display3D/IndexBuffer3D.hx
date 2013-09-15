@@ -31,14 +31,37 @@ class IndexBuffer3D
    {
        var bytesPerIndex = 2;
       GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, glBuffer);
-      var indices = new Int16Array(byteArray,byteArrayOffset + startOffset* bytesPerIndex, count* bytesPerIndex);
+      var length : Int = count* bytesPerIndex;
+      var offset : Int = byteArrayOffset + startOffset* bytesPerIndex;
+      var indices : Int16Array;
+      #if html5
+      indices = new Int16Array(length);
+        byteArray.position = offset;
+        var i:Int = 0;
+        while (byteArray.position < length + offset) {
+            indices[i] = byteArray.readUnsignedByte();
+            i++;
+        }
+      #else
+      indices = new Int16Array(byteArray, offset, length);
+      #end
+
       GL.bufferData(GL.ELEMENT_ARRAY_BUFFER, indices, GL.STATIC_DRAW);
    }
 
    public function uploadFromVector(data:Vector<Int>, startOffset:Int, count:Int):Void 
    {
         GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, glBuffer);
-        GL.bufferData(GL.ELEMENT_ARRAY_BUFFER, new Int16Array(data, startOffset, count), GL.STATIC_DRAW);
+        var indices : Int16Array;
+        #if html5
+         indices = new Int16Array(count * 2);
+        for(i in startOffset...(startOffset+count)){
+            indices[i] = data[i];
+        }
+        #else
+        indices = new Int16Array(data, startOffset, count);
+        #end
+        GL.bufferData(GL.ELEMENT_ARRAY_BUFFER, indices, GL.STATIC_DRAW);
    }
 
     public function dispose():Void 

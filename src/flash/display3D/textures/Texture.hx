@@ -53,9 +53,23 @@ class Texture extends TextureBase
 
 
 	public function uploadFromByteArray(data:ByteArray, byteArrayOffset:Int, miplevel:Int = 0):Void {
+        //TODO mipLevel
 
         GL.bindTexture (GL.TEXTURE_2D, glTexture);
-        GL.texSubImage2D(GL.TEXTURE_2D, miplevel, 0, 0, width, height, GL.RGBA, GL.UNSIGNED_BYTE, new UInt8Array(data));
+        var source : UInt8Array;
+        #if html5
+        source = new UInt8Array(data.length);
+        data.position = byteArrayOffset;
+        var i:Int = 0;
+        while (data.position < data.length) {
+            source[i] = data.readUnsignedByte();
+            i++;
+        }
+        #else
+        //TODO byteArrayOffset ?
+        source = new UInt8Array(data);
+        #end
+        GL.texSubImage2D(GL.TEXTURE_2D, miplevel, 0, 0, width, height, GL.RGBA, GL.UNSIGNED_BYTE, source);
 
 	}
 }

@@ -52,6 +52,12 @@ import flash.utils.ByteArray;
 import flash.Lib;
 import flash.Vector;
 
+#if html5
+typedef Location = openfl.gl.GLUniformLocation;
+#else
+typedef Location = Int;
+#end
+
 class Context3D 
 {
    public var driverInfo(default, null):String; // TODO
@@ -78,8 +84,8 @@ class Context3D
 
     private var tmpFrameBuffer : GLFramebuffer;
 
-    private var boundTextures : Map<Int,TextureBase>;
-    private var samplerParameters : Map<Int,Array<Dynamic>>; //TODO : use Tupple3
+    private var boundTextures : Map<Location,TextureBase>;
+    private var samplerParameters : Map<Location,Array<Dynamic>>; //TODO : use Tupple3
 
    public function new() 
    {

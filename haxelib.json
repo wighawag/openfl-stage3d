@@ -3,7 +3,7 @@
   "url" : "https://github.com/wighawag/openfl-stage3d/",
   "license": "GPL",
   "tags": ["cross","3d"],
-  "description": "fix colors on html5",
+  "description": "stage3d api over openfl OpenGLViewi (only cpp supported for now)",
   "version": "0.1.2",
   "releasenote": "",
   "contributors": ["wighawag"],

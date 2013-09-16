@@ -45,8 +45,11 @@ class Texture extends TextureBase
 
 
 	public function uploadFromBitmapData (bitmapData:BitmapData, miplevel:Int = 0):Void {
-
+        #if html5
+        var p = bitmapData.getPixels(new flash.geom.Rectangle(0, 0, bitmapData.width, bitmapData.height));
+        #else
         var p = bitmapData.getRGBAPixels();
+        #end
         uploadFromByteArray(p, 0, miplevel);
 
 	}

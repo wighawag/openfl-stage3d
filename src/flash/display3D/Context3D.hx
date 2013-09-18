@@ -240,8 +240,10 @@ class Context3D
          numIndices = numTriangles * 3;
       }
 
+      var byteOffset = firstIndex * 2;
+
       GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, indexBuffer.glBuffer);
-      GL.drawElements(GL.TRIANGLES, numIndices, GL.UNSIGNED_SHORT, firstIndex);
+      GL.drawElements(GL.TRIANGLES, numIndices, GL.UNSIGNED_SHORT, byteOffset);
    }
 
    public function present():Void 
@@ -361,7 +363,7 @@ class Context3D
     public function setGLSLProgramConstantsFromVector4(locationName : String, data:Vector<Float>, startIndex : Int = 0):Void 
     {
         var location = GL.getUniformLocation(currentProgram.glProgram, locationName);
-        GL.uniform4f(location, data[startIndex],data[startIndex+1],data[startIndex+1],data[startIndex+3]);
+        GL.uniform4f(location, data[startIndex],data[startIndex+1],data[startIndex+2],data[startIndex+3]);
     }
 
    // TODO: Conform to API?

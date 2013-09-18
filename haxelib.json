@@ -4,7 +4,7 @@
   "license": "GPL",
   "tags": ["cross","3d"],
   "description": "stage3d api over openfl OpenGLViewi (only cpp supported for now)",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "releasenote": "",
   "contributors": ["wighawag"],
   "dependencies": {"openfl":"1.0.4", "stage3d-glsl":"0.1.0"},

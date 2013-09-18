@@ -71,6 +71,10 @@ class Context3D
    private var blendEnabled:Bool;
    private var blendSourceFactor:Int;
 
+   private var stencilCompareMode:Int;
+   private var stencilRef:Int;
+   private var stencilReadMask:Int;
+
    // to mimic Stage3d behavior of not allowing calls to drawTriangles between present and clear
    private var drawing:Bool;
 
@@ -130,6 +134,7 @@ class Context3D
             // TODO check whether this is kept across frame
             GL.enable(GL.DEPTH_STENCIL);
             GL.enable(GL.DEPTH_TEST);
+            GL.enable(GL.STENCIL_TEST);
         }
 
         // TODO use antiAlias parameter
@@ -500,14 +505,20 @@ class Context3D
         GL.scissor(Std.int(rectangle.x), Std.int(rectangle.y), Std.int(rectangle.width), Std.int(rectangle.height));
    }
 
-   public function setStencilActions(?triangleFace:Context3DTriangleFace, ?compareMode:Context3DCompareMode, ?actionOnBothPass:Context3DStencilAction, ?actionOnDepthFail:Context3DStencilAction, ?actionOnDepthPassStencilFail:Context3DStencilAction):Void 
+   public function setStencilActions(?triangleFace:Int, ?compareMode:Int, ?actionOnBothPass:Int, ?actionOnDepthFail:Int, ?actionOnDepthPassStencilFail:Int):Void 
    {
-      // TODO
+      this.stencilCompareMode = compareMode;
+      GL.stencilOp(actionOnBothPass, actionOnDepthFail, actionOnDepthPassStencilFail);
+      GL.stencilFunc(stencilCompareMode, stencilRef, stencilReadMask);
    }
 
    public function setStencilReferenceValue(referenceValue:Int, readMask:Int = 0xFF, writeMask:Int = 0xFF):Void 
    {
-      // TODO
+      stencilReadMask = readMask;
+      stencilRef = referenceValue;
+
+      GL.stencilFunc(stencilCompareMode, stencilRef, stencilReadMask);
+      GL.stencilMask(writeMask);
    }
 
      public function setTextureAt (sampler:Int, texture:TextureBase):Void {

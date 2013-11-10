@@ -550,7 +550,9 @@ class Context3D
 
 			GL.bindTexture(GL.TEXTURE_2D, cast(texture, flash.display3D.textures.Texture).glTexture);
 
-        }else{
+        } else if(texture == null) {
+			GL.bindTexture(GL.TEXTURE_2D, null);
+		} else {
             throw "Texture of type " + Type.getClassName(Type.getClass(texture)) + " not supported yet";
         }
 
@@ -559,11 +561,13 @@ class Context3D
 		boundTextures.set(location, texture);
 
 
-	    var parameters = samplerParameters.get(location);
-        if(parameters != null){
-            setTextureParameters(texture, parameters[0], parameters[1], parameters[2]);
-        }else{
-            setTextureParameters(texture, Context3DWrapMode.REPEAT, Context3DTextureFilter.NEAREST, Context3DMipFilter.MIPNONE);
+        if(texture != null){
+            var parameters = samplerParameters.get(location);
+            if(parameters != null){
+                setTextureParameters(texture, parameters[0], parameters[1], parameters[2]);
+            }else{
+                setTextureParameters(texture, Context3DWrapMode.REPEAT, Context3DTextureFilter.NEAREST, Context3DMipFilter.MIPNONE);
+            }
         }
 
 

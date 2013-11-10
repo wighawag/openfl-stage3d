@@ -132,7 +132,6 @@ class Context3D
         if (enableDepthAndStencil)
         {
             // TODO check whether this is kept across frame
-            GL.enable(GL.DEPTH_STENCIL);
             GL.enable(GL.DEPTH_TEST);
             GL.enable(GL.STENCIL_TEST);
         }

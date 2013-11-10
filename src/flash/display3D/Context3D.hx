@@ -583,7 +583,13 @@ class Context3D
    {
       var location = GL.getAttribLocation(currentProgram.glProgram,locationName);
 
-        GL.bindBuffer(GL.ARRAY_BUFFER, buffer.glBuffer);
+      if (buffer == null)
+	  {
+	    GL.bindBuffer(GL.ARRAY_BUFFER, null);
+		return;
+	  }
+
+      GL.bindBuffer(GL.ARRAY_BUFFER, buffer.glBuffer);
 
       var dimension = 4;
       var type = GL.FLOAT;

@@ -5,35 +5,35 @@
 package flash.display3D;
 #if (flash || display)
 @:final extern class Context3D extends flash.events.EventDispatcher {
-	var driverInfo(default,null) : String;
-	var enableErrorChecking : Bool;
-	function clear(red : Float = 0, green : Float = 0, blue : Float = 0, alpha : Float = 1, depth : Float = 1, stencil : UInt = 0, mask : UInt = 0xFFFFFFFF) : Void;
-	function configureBackBuffer(width : Int, height : Int, antiAlias : Int, enableDepthAndStencil : Bool = true, wantsBestResolution : Bool = false) : Void;
-	function createCubeTexture(size : Int, format : Context3DTextureFormat, optimizeForRenderToTexture : Bool, streamingLevels : Int = 0) : flash.display3D.textures.CubeTexture;
-	function createIndexBuffer(numIndices : Int) : IndexBuffer3D;
-	function createProgram() : Program3D;
-	function createTexture(width : Int, height : Int, format : Context3DTextureFormat, optimizeForRenderToTexture : Bool, streamingLevels : Int = 0) : flash.display3D.textures.Texture;
-	function createVertexBuffer(numVertices : Int, data32PerVertex : Int) : VertexBuffer3D;
-	function dispose(recreate : Bool = true) : Void;
-	function drawToBitmapData(destination : flash.display.BitmapData) : Void;
-	function drawTriangles(indexBuffer : IndexBuffer3D, firstIndex : Int = 0, numTriangles : Int = -1) : Void;
-	function present() : Void;
-	function setBlendFactors(sourceFactor : Context3DBlendFactor, destinationFactor : Context3DBlendFactor) : Void;
-	function setColorMask(red : Bool, green : Bool, blue : Bool, alpha : Bool) : Void;
-	function setCulling(triangleFaceToCull : Context3DTriangleFace) : Void;
-	function setDepthTest(depthMask : Bool, passCompareMode : Context3DCompareMode) : Void;
-	function setProgram(program : Program3D) : Void;
-	@:require(flash11_2) function setProgramConstantsFromByteArray(programType : Context3DProgramType, firstRegister : Int, numRegisters : Int, data : flash.utils.ByteArray, byteArrayOffset : UInt) : Void;
-	function setProgramConstantsFromMatrix(programType : Context3DProgramType, firstRegister : Int, matrix : flash.geom.Matrix3D, transposedMatrix : Bool = false) : Void;
-	function setProgramConstantsFromVector(programType : Context3DProgramType, firstRegister : Int, data : flash.Vector<Float>, numRegisters : Int = -1) : Void;
-	function setRenderToBackBuffer() : Void;
-	function setRenderToTexture(texture : flash.display3D.textures.TextureBase, enableDepthAndStencil : Bool = false, antiAlias : Int = 0, surfaceSelector : Int = 0) : Void;
-	@:require(flash11_6) function setSamplerStateAt(sampler : Int, wrap : Context3DWrapMode, filter : Context3DTextureFilter, mipfilter : Context3DMipFilter) : Void;
-	function setScissorRectangle(rectangle : flash.geom.Rectangle) : Void;
-	function setStencilActions(?triangleFace : Context3DTriangleFace, ?compareMode : Context3DCompareMode, ?actionOnBothPass : Context3DStencilAction, ?actionOnDepthFail : Context3DStencilAction, ?actionOnDepthPassStencilFail : Context3DStencilAction) : Void;
-	function setStencilReferenceValue(referenceValue : UInt, readMask : UInt = 255, writeMask : UInt = 255) : Void;
-	function setTextureAt(sampler : Int, texture : flash.display3D.textures.TextureBase) : Void;
-	function setVertexBufferAt(index : Int, buffer : VertexBuffer3D, bufferOffset : Int = 0, ?format : Context3DVertexBufferFormat) : Void;
+    var driverInfo(default,null) : String;
+    var enableErrorChecking : Bool;
+    function clear(red : Float = 0, green : Float = 0, blue : Float = 0, alpha : Float = 1, depth : Float = 1, stencil : UInt = 0, mask : UInt = 0xFFFFFFFF) : Void;
+    function configureBackBuffer(width : Int, height : Int, antiAlias : Int, enableDepthAndStencil : Bool = true, wantsBestResolution : Bool = false) : Void;
+    function createCubeTexture(size : Int, format : Context3DTextureFormat, optimizeForRenderToTexture : Bool, streamingLevels : Int = 0) : flash.display3D.textures.CubeTexture;
+    function createIndexBuffer(numIndices : Int) : IndexBuffer3D;
+    function createProgram() : Program3D;
+    function createTexture(width : Int, height : Int, format : Context3DTextureFormat, optimizeForRenderToTexture : Bool, streamingLevels : Int = 0) : flash.display3D.textures.Texture;
+    function createVertexBuffer(numVertices : Int, data32PerVertex : Int) : VertexBuffer3D;
+    function dispose(recreate : Bool = true) : Void;
+    function drawToBitmapData(destination : flash.display.BitmapData) : Void;
+    function drawTriangles(indexBuffer : IndexBuffer3D, firstIndex : Int = 0, numTriangles : Int = -1) : Void;
+    function present() : Void;
+    function setBlendFactors(sourceFactor : Context3DBlendFactor, destinationFactor : Context3DBlendFactor) : Void;
+    function setColorMask(red : Bool, green : Bool, blue : Bool, alpha : Bool) : Void;
+    function setCulling(triangleFaceToCull : Context3DTriangleFace) : Void;
+    function setDepthTest(depthMask : Bool, passCompareMode : Context3DCompareMode) : Void;
+    function setProgram(program : Program3D) : Void;
+    @:require(flash11_2) function setProgramConstantsFromByteArray(programType : Context3DProgramType, firstRegister : Int, numRegisters : Int, data : flash.utils.ByteArray, byteArrayOffset : UInt) : Void;
+    function setProgramConstantsFromMatrix(programType : Context3DProgramType, firstRegister : Int, matrix : flash.geom.Matrix3D, transposedMatrix : Bool = false) : Void;
+    function setProgramConstantsFromVector(programType : Context3DProgramType, firstRegister : Int, data : flash.Vector<Float>, numRegisters : Int = -1) : Void;
+    function setRenderToBackBuffer() : Void;
+    function setRenderToTexture(texture : flash.display3D.textures.TextureBase, enableDepthAndStencil : Bool = false, antiAlias : Int = 0, surfaceSelector : Int = 0) : Void;
+    @:require(flash11_6) function setSamplerStateAt(sampler : Int, wrap : Context3DWrapMode, filter : Context3DTextureFilter, mipfilter : Context3DMipFilter) : Void;
+    function setScissorRectangle(rectangle : flash.geom.Rectangle) : Void;
+    function setStencilActions(?triangleFace : Context3DTriangleFace, ?compareMode : Context3DCompareMode, ?actionOnBothPass : Context3DStencilAction, ?actionOnDepthFail : Context3DStencilAction, ?actionOnDepthPassStencilFail : Context3DStencilAction) : Void;
+    function setStencilReferenceValue(referenceValue : UInt, readMask : UInt = 255, writeMask : UInt = 255) : Void;
+    function setTextureAt(sampler : Int, texture : flash.display3D.textures.TextureBase) : Void;
+    function setVertexBufferAt(index : Int, buffer : VertexBuffer3D, bufferOffset : Int = 0, ?format : Context3DVertexBufferFormat) : Void;
 }
 #else
 import openfl.utils.Float32Array;
@@ -132,7 +132,6 @@ class Context3D
         if (enableDepthAndStencil)
         {
             // TODO check whether this is kept across frame
-            GL.enable(GL.DEPTH_STENCIL);
             GL.enable(GL.DEPTH_TEST);
             GL.enable(GL.STENCIL_TEST);
         }
@@ -250,8 +249,8 @@ class Context3D
    {
       drawing = false;
       GL.useProgram(null);
-	  
-	  GL.bindBuffer(GL.ARRAY_BUFFER, null);
+      
+      GL.bindBuffer(GL.ARRAY_BUFFER, null);
    }
 
    // TODO: Type as Context3DBlendFactor instead of Int?
@@ -308,11 +307,11 @@ class Context3D
     {
       if (programType == Context3DProgramType.VERTEX) 
       {
-         return "vc";
+         return "vc" + firstRegister;
 
       } else if (programType == Context3DProgramType.FRAGMENT) 
       {
-         return "fc";
+         return "fc" + firstRegister;
       }
 
         throw "Program Type " + programType + " not supported";
@@ -381,10 +380,10 @@ class Context3D
         GL.bindFramebuffer(GL.FRAMEBUFFER, null);
         //GL.viewport(Std.int(ogl.scrollRect.x),Std.int(ogl.scrollRect.y),Std.int(ogl.scrollRect.width),Std.int(ogl.scrollRect.height));
 
-	}
+    }
 
     // TODO : currently does not work (frameBufferStatus always return zero)
-	public function setRenderToTexture (texture:TextureBase, enableDepthAndStencil:Bool = false, antiAlias:Int = 0, surfaceSelector:Int = 0):Void {
+    public function setRenderToTexture (texture:TextureBase, enableDepthAndStencil:Bool = false, antiAlias:Int = 0, surfaceSelector:Int = 0):Void {
 
         // TODO antiAlias (could this be achieved using a texture multiple of the screensize ?)
         // TODO surfaceSelector
@@ -432,7 +431,7 @@ class Context3D
         //GL.viewport(0,0,texture2d.width,texture2d.height);
 
 
-	}
+    }
 
    public function setSamplerStateAt(sampler:Int, wrap:Context3DWrapMode, filter:Context3DTextureFilter, mipfilter:Context3DMipFilter):Void
    {
@@ -462,41 +461,41 @@ class Context3D
 
        if (Std.is (texture, flash.display3D.textures.Texture)) {
 
-			GL.bindTexture(GL.TEXTURE_2D, cast(texture, flash.display3D.textures.Texture).glTexture);
+            GL.bindTexture(GL.TEXTURE_2D, cast(texture, flash.display3D.textures.Texture).glTexture);
 
-			switch(wrap){
-			    case Context3DWrapMode.CLAMP:
-			        GL.texParameteri(GL.TEXTURE_2D, GL.TEXTURE_WRAP_S, GL.CLAMP_TO_EDGE);
-			        GL.texParameteri(GL.TEXTURE_2D, GL.TEXTURE_WRAP_T, GL.CLAMP_TO_EDGE);
-			    case Context3DWrapMode.REPEAT:
+            switch(wrap){
+                case Context3DWrapMode.CLAMP:
+                    GL.texParameteri(GL.TEXTURE_2D, GL.TEXTURE_WRAP_S, GL.CLAMP_TO_EDGE);
+                    GL.texParameteri(GL.TEXTURE_2D, GL.TEXTURE_WRAP_T, GL.CLAMP_TO_EDGE);
+                case Context3DWrapMode.REPEAT:
                     GL.texParameteri(GL.TEXTURE_2D, GL.TEXTURE_WRAP_S, GL.REPEAT);
-			        GL.texParameteri(GL.TEXTURE_2D, GL.TEXTURE_WRAP_T, GL.REPEAT);
-			}
+                    GL.texParameteri(GL.TEXTURE_2D, GL.TEXTURE_WRAP_T, GL.REPEAT);
+            }
 
 
-			switch(filter){
-			    case Context3DTextureFilter.LINEAR:
-			        GL.texParameteri(GL.TEXTURE_2D, GL.TEXTURE_MAG_FILTER, GL.LINEAR);
+            switch(filter){
+                case Context3DTextureFilter.LINEAR:
+                    GL.texParameteri(GL.TEXTURE_2D, GL.TEXTURE_MAG_FILTER, GL.LINEAR);
 
-			    case Context3DTextureFilter.NEAREST:
-			        GL.texParameteri(GL.TEXTURE_2D, GL.TEXTURE_MAG_FILTER, GL.NEAREST);
-			}
+                case Context3DTextureFilter.NEAREST:
+                    GL.texParameteri(GL.TEXTURE_2D, GL.TEXTURE_MAG_FILTER, GL.NEAREST);
+            }
 
-			//TODO CHECK the mipmap filters
-			switch(mipfilter){
-			    case Context3DMipFilter.MIPLINEAR:
-			        GL.texParameteri(GL.TEXTURE_2D, GL.TEXTURE_MIN_FILTER, GL.LINEAR_MIPMAP_LINEAR);
+            //TODO CHECK the mipmap filters
+            switch(mipfilter){
+                case Context3DMipFilter.MIPLINEAR:
+                    GL.texParameteri(GL.TEXTURE_2D, GL.TEXTURE_MIN_FILTER, GL.LINEAR_MIPMAP_LINEAR);
 
-			    case Context3DMipFilter.MIPNEAREST:
-			        GL.texParameteri(GL.TEXTURE_2D, GL.TEXTURE_MIN_FILTER, GL.NEAREST_MIPMAP_NEAREST);
+                case Context3DMipFilter.MIPNEAREST:
+                    GL.texParameteri(GL.TEXTURE_2D, GL.TEXTURE_MIN_FILTER, GL.NEAREST_MIPMAP_NEAREST);
 
-			    case Context3DMipFilter.MIPNONE:
-			        GL.texParameteri(GL.TEXTURE_2D, GL.TEXTURE_MIN_FILTER, GL.NEAREST);
+                case Context3DMipFilter.MIPNONE:
+                    GL.texParameteri(GL.TEXTURE_2D, GL.TEXTURE_MIN_FILTER, GL.NEAREST);
 
-			}
+            }
 
 
-		}else{
+        }else{
             throw "Texture of type " + Type.getClassName(Type.getClass(texture)) + " not supported yet";
         }
    }
@@ -529,11 +528,11 @@ class Context3D
     }
 
 
-	public function setGLSLTextureAt (locationName:String, texture:TextureBase, textureIndex : Int):Void {
+    public function setGLSLTextureAt (locationName:String, texture:TextureBase, textureIndex : Int):Void {
 
         var location = GL.getUniformLocation (currentProgram.glProgram, locationName);
 
-		if (Std.is (texture, flash.display3D.textures.Texture)) {
+        if (Std.is (texture, flash.display3D.textures.Texture)) {
 
             switch(textureIndex){
                 case 0 : GL.activeTexture (GL.TEXTURE0);
@@ -549,26 +548,30 @@ class Context3D
             }
 
 
-			GL.bindTexture(GL.TEXTURE_2D, cast(texture, flash.display3D.textures.Texture).glTexture);
+            GL.bindTexture(GL.TEXTURE_2D, cast(texture, flash.display3D.textures.Texture).glTexture);
 
-        }else{
+        } else if(texture == null) {
+            GL.bindTexture(GL.TEXTURE_2D, null);
+        } else {
             throw "Texture of type " + Type.getClassName(Type.getClass(texture)) + " not supported yet";
         }
 
-		GL.uniform1i(location, textureIndex);
+        GL.uniform1i(location, textureIndex);
 
-		boundTextures.set(location, texture);
+        boundTextures.set(location, texture);
 
 
-	    var parameters = samplerParameters.get(location);
-        if(parameters != null){
-            setTextureParameters(texture, parameters[0], parameters[1], parameters[2]);
-        }else{
-            setTextureParameters(texture, Context3DWrapMode.REPEAT, Context3DTextureFilter.NEAREST, Context3DMipFilter.MIPNONE);
+        if(texture != null){
+            var parameters = samplerParameters.get(location);
+            if(parameters != null){
+                setTextureParameters(texture, parameters[0], parameters[1], parameters[2]);
+            }else{
+                setTextureParameters(texture, Context3DWrapMode.REPEAT, Context3DTextureFilter.NEAREST, Context3DMipFilter.MIPNONE);
+            }
         }
 
 
-	}
+    }
 
     public function setVertexBufferAt(index:Int,buffer:VertexBuffer3D, bufferOffset:Int = 0, ?format:Context3DVertexBufferFormat):Void 
     {
@@ -580,7 +583,13 @@ class Context3D
    {
       var location = GL.getAttribLocation(currentProgram.glProgram,locationName);
 
-        GL.bindBuffer(GL.ARRAY_BUFFER, buffer.glBuffer);
+      if (buffer == null)
+      {
+        GL.bindBuffer(GL.ARRAY_BUFFER, null);
+        return;
+      }
+
+      GL.bindBuffer(GL.ARRAY_BUFFER, buffer.glBuffer);
 
       var dimension = 4;
       var type = GL.FLOAT;

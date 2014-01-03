@@ -107,8 +107,13 @@ class Context3D
       ogl.scrollRect = new Rectangle(0, 0, stage.stageWidth, stage.stageHeight);
       ogl.width = stage.stageWidth;
       ogl.height = stage.stageHeight;
-
-      stage.addChildAt(ogl, 0);
+	  //todo html something 
+		#if html5
+		stage.addChild(ogl);
+		#else
+		stage.addChildAt(ogl, 0);
+		#end
+      
    }
 
    public function clear(red:Float = 0, green:Float = 0, blue:Float = 0, alpha:Float = 1, depth:Float = 1, stencil:Int = 0, mask:Int = Context3DClearMask.ALL):Void 

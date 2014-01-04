@@ -64,7 +64,12 @@ class AGLSLContext3D extends Context3D
 	
 	 override public function present():Void  
 	{
-		this.drawing = false;
+		#if html5
+		     this.drawing = false;
+		#else
+	         super.present();
+		#end
+		
 		 
 	}
 

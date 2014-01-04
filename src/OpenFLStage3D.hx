@@ -6,16 +6,21 @@ package;
 
 import flash.display.Stage;
 import flash.display.Stage3D;
+import flash.display3D.IndexBuffer3D;
 import flash.geom.Rectangle;
 import flash.events.Event;
 import flash.Vector;
 import flash.display3D.Context3D;
+import openfl.gl.GL;
+import openfl.gl.GLUniformLocation;
 
 
 class OpenFLStage3D{
 
     #if !flash
     static private var stage3Ds:Vector<Stage3D> = [];
+	
+	 static	private var _yFlip:Float=-1;
     #end
 
     static public function getStage3D(stage : Stage, index : Int) : Stage3D{
@@ -45,7 +50,6 @@ class OpenFLStage3D{
         context3D.setRenderMethod(func);
         #end
     }
-
 
     /**
     * Common API for both cpp and flash to remove the render callback

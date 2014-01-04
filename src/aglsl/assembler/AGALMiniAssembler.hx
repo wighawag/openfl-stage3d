@@ -302,6 +302,7 @@ class AGALMiniAssembler {
 		if(reg.length<1)  {
 			return false;
 		}
+		if (reg[1] == null) reg[1] = "0";
 		pr.data.writeShort(Std.parseInt(reg[1]));
 		pr.data.writeByte(0);
 		// bias

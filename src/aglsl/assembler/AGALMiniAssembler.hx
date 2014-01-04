@@ -222,7 +222,9 @@ class AGALMiniAssembler {
 		
 		
 		var _map : StringMap<Reg>=RegMap.map;
-		if(!RegMap.map.exists(reg[1])) return false;
+		if (!RegMap.map.exists(reg[1])) return false;
+		if (Std.parseInt(reg[2]) == null) reg[2] = "0";
+		 
 		var em = {
 			num : Std.int(Std.parseInt(reg[2])) ,
 			code : RegMap.map.get(reg[1]).code,
@@ -348,6 +350,7 @@ class AGALMiniAssembler {
 				z : 2,
 				w : 3
 			};
+			 
 			var em = {
 				num : Std.parseInt(indexed[2]) | 0,
 				code : RegMap.map.get(indexed[1]).code,
@@ -372,6 +375,7 @@ class AGALMiniAssembler {
 			if(!RegMap.map.exists(reg[1]))  {
 				return false;
 			}
+			 
 			var em = {
 				num : Std.parseInt(reg[2]) | 0,
 				code : RegMap.map.get(reg[1]).code,

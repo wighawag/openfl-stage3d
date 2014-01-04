@@ -12,23 +12,26 @@ class AGLSLParser {
 		var i : Int = 0;
         header += "precision highp float;\n";
         var tag = desc.header.type.charAt(0); //TODO
-
+		
         // declare uniforms
         if (desc.header.type == "vertex") {
             header += "uniform float yflip;\n";
         }
+		
         if (!desc.hasindirect) {
+			
 			i  = 0;
-            while ( i < desc.regread[0x1].length) {
-                if (desc.regread[0x1][i]) {
+            while ( i < desc.regread[0x1].length) { 
+                if (desc.regread[0x1][i]>0) {
                     header += "uniform vec4 " + tag + "c" + i + ";\n";
+					
+	
                 }
 				i++;
             }
         } else {
             header += "uniform vec4 " + tag + "carrr[" + Context3D.maxvertexconstants + "];\n";                // use max const count instead
-        }
-
+        } 
         // declare temps
 		i  = 0;
         while ( i < desc.regread[0x2].length || i < desc.regwrite[0x2].length) {
@@ -92,7 +95,8 @@ class AGLSLParser {
 				var destregstring:String ;
 				var destcaststring:String;
 				var destmaskstring:String;
-                if (desc.tokens[i].dest) {
+			
+                if (desc.tokens[i].dest!=null) {
                     if (lutentry.matrixheight>0) {
                         if (((desc.tokens[i].dest.mask >> sl) & 1) != 1) {
                             continue;
@@ -141,19 +145,19 @@ class AGLSLParser {
                             destcaststring = "vec4";
                             destmaskstring = "xyzw";
                         }
-                    }
+                    } 
                     line = line.replace("%dest", destregstring);
                     line = line.replace("%cast", destcaststring);
                     line = line.replace("%dm", destmaskstring);
                 }
                 var dwm:Int = 0xf;
-                if (!lutentry.ndwm && lutentry.dest && desc.tokens[i].dest) {
+                if (!lutentry.ndwm && lutentry.dest && desc.tokens[i].dest!=null) {
                     dwm = desc.tokens[i].dest.mask;
                 }
-                if (desc.tokens[i].a) {
+                if (desc.tokens[i].a!=null) {
                     line = line.replace("%a", this.sourcetostring(desc.tokens[i].a, 0, dwm, lutentry.scalar, desc, tag));
                 }
-                if (desc.tokens[i].b) {
+                if (desc.tokens[i].b!=null) {
                     line = line.replace("%b", this.sourcetostring(desc.tokens[i].b, sl, dwm, lutentry.scalar, desc, tag));
                     if (desc.tokens[i].b.regtype == 0x5) {
                         // sampler dim

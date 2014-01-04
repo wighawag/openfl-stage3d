@@ -56,7 +56,12 @@ class AGALTokenizer {
 				token.dest.regnum = bytes.readUnsignedShort();
 				token.dest.mask = bytes.readUnsignedByte();
 				token.dest.regtype = bytes.readUnsignedByte();
-				desc.regwrite[token.dest.regtype][token.dest.regnum] |= token.dest.mask;
+				if (desc.regwrite[token.dest.regtype][token.dest.regnum] == null) {
+					desc.regwrite[token.dest.regtype][token.dest.regnum] = token.dest.mask;
+				}else {
+					desc.regwrite[token.dest.regtype][token.dest.regnum] |= token.dest.mask;
+				}
+				
 			}
 
 			else  {
@@ -123,7 +128,7 @@ class AGALTokenizer {
 			s.indexselect = bytes.readUnsignedByte();
 			s.indirectflag = bytes.readUnsignedByte();
 		}
-
+	 
 		if(s.indirectflag==1)  {
 			desc.hasindirect = true;
 		}

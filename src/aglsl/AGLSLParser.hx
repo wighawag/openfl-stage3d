@@ -10,14 +10,16 @@ class AGLSLParser {
         var header:String = "";
         var body:String = "";
 		var i : Int = 0;
+		#if html5
         header += "precision highp float;\n";
+		#end
         var tag = desc.header.type.charAt(0); //TODO
-		
+	
         // declare uniforms
         if (desc.header.type == "vertex") {
             header += "uniform float yflip;\n";
         }
-		
+
         if (!desc.hasindirect) {
 			
 			i  = 0;
@@ -35,7 +37,7 @@ class AGLSLParser {
         // declare temps
 		i  = 0;
         while ( i < desc.regread[0x2].length || i < desc.regwrite[0x2].length) {
-            if (desc.regread[0x2][i] || desc.regwrite[0x2][i]) // duh, have to check write only also...
+            if (desc.regread[0x2][i]>0 || desc.regwrite[0x2][i]>0) // duh, have to check write only also...
             {
                 header += "vec4 " + tag + "t" + i + ";\n";
             }
@@ -45,7 +47,7 @@ class AGLSLParser {
         // declare streams
 		i  = 0;
         while ( i < desc.regread[0x0].length) {
-            if (desc.regread[0x0][i]) {
+            if (desc.regread[0x0][i]>0) {
                 header += "attribute vec4 va" + i + ";\n";
             }
 			i++;
@@ -54,7 +56,7 @@ class AGLSLParser {
         // declare interpolated
 		i  = 0;
         while ( i < desc.regread[0x4].length || i < desc.regwrite[0x4].length) {
-            if (desc.regread[0x4][i] || desc.regwrite[0x4][i]) {
+            if (desc.regread[0x4][i]>0 || desc.regwrite[0x4][i]>0) {
                 header += "varying vec4 vi" + i + ";\n";
             }
 				i++;

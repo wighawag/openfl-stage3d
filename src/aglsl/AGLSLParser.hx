@@ -1,3 +1,7 @@
+/****
+* 
+****/
+
 ///<reference path="../away/_definitions.ts" />
 package aglsl;
 using StringTools;

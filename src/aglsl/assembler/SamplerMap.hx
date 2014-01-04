@@ -1,3 +1,7 @@
+/****
+* 
+****/
+
 package aglsl.assembler;
 
 import haxe.ds.StringMap.StringMap;

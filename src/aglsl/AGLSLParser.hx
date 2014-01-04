@@ -1,4 +1,4 @@
-
+///<reference path="../away/_definitions.ts" />
 package aglsl;
 using StringTools;
 class AGLSLParser {
@@ -66,7 +66,8 @@ class AGLSLParser {
         var samptype:Array<String> = ["2D", "Cube", "3D", ""];
 		i  = 0;
         while ( i < desc.samplers.length) {
-            if (desc.samplers[i]) {
+		 
+            if (desc.samplers[i]!=null) {
                 header += "uniform sampler" + samptype[ desc.samplers[i].dim & 3 ] + " fs" + i + ";\n";
             }
 			i++;

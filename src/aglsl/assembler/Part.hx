@@ -1,4 +1,4 @@
-///<reference path="../../away/_definitions.ts" />
+
 package aglsl.assembler;
 
 import flash.utils.ByteArray;

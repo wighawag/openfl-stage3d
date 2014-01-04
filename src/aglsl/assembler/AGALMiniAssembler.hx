@@ -1,4 +1,4 @@
-///<reference path="../../away/_definitions.ts" />
+
 package aglsl.assembler;
 import haxe.ds.StringMap.StringMap;
 import  aglsl.assembler.ERegTools; 

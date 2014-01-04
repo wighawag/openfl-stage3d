@@ -6,23 +6,43 @@ package;
 
 import flash.display.Stage;
 import flash.display.Stage3D;
+import flash.events.ErrorEvent;
+    #if !flash
+import flash.display3D.AGLSLContext3D;
+import openfl.display.OpenGLView;
+import openfl.gl.GL;
+import openfl.gl.GLUniformLocation;
+    #end
 import flash.display3D.IndexBuffer3D;
 import flash.geom.Rectangle;
 import flash.events.Event;
 import flash.Vector;
 import flash.display3D.Context3D;
-import openfl.gl.GL;
-import openfl.gl.GLUniformLocation;
+
 
 
 class OpenFLStage3D{
 
     #if !flash
-    static private var stage3Ds:Vector<Stage3D> = [];
-	
-	 static	private var _yFlip:Float=-1;
+    static private var stage3Ds:Vector<Stage3D> = []; 
     #end
-
+	static public function requestAGLSLContext3D(stage3D : Stage3D,?context3DRenderMode:String =  "auto"):Void 
+   {
+	 #if !flash
+      if (OpenGLView.isSupported)   
+      {
+          stage3D.context3D = new AGLSLContext3D();   
+          stage3D.dispatchEvent(new Event(Event.CONTEXT3D_CREATE));
+      }else
+      {
+		  stage3D.dispatchEvent(new ErrorEvent(ErrorEvent.ERROR));  
+	  }
+	#end
+	 #if flash
+           stage3D.requestContext3D(context3DRenderMode);
+	#end
+      
+   }
     static public function getStage3D(stage : Stage, index : Int) : Stage3D{
         #if flash
         return stage.stage3Ds[index];

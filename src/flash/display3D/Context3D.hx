@@ -557,6 +557,7 @@ class Context3D
 
         } else if(texture == null) {
             GL.bindTexture(GL.TEXTURE_2D, null);
+			return;
         } else {
             throw "Texture of type " + Type.getClassName(Type.getClass(texture)) + " not supported yet";
         }

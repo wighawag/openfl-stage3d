@@ -114,19 +114,19 @@ class AGLSLParser {
                             var ndest:Int = 0;
                             destmaskstring = "";
 							//why
-                            if (desc.tokens[i].dest.mask & 1==1) {
+                            if (desc.tokens[i].dest.mask & 1!=0) {
                                 ndest++;
                                 destmaskstring += "x";
                             }
-                            if (desc.tokens[i].dest.mask & 2==1) {
+                            if (desc.tokens[i].dest.mask & 2!=0) {
                                 ndest++;
                                 destmaskstring += "y";
                             }
-                            if (desc.tokens[i].dest.mask & 4==1) {
+                            if (desc.tokens[i].dest.mask & 4!=0) {
                                 ndest++;
                                 destmaskstring += "z";
                             }
-                            if (desc.tokens[i].dest.mask & 8==1) {
+                            if (desc.tokens[i].dest.mask & 8!=0) {
                                 ndest++;
                                 destmaskstring += "w";
                             }
@@ -142,7 +142,7 @@ class AGLSLParser {
                                     destcaststring = "vec3";
                                  
                                 default:
-                                    throw "Unexpected destination mask";
+                                    throw "Unexpected destination mask"+desc.tokens[i].dest.mask;
                             }
                         } else {
                             destcaststring = "vec4";
@@ -261,10 +261,10 @@ class AGLSLParser {
 		}
 		r += ".";
 		//why
-		if(dwm & 1==1) r += swiz[(s.swizzle >> 0) & 3];
-		if(dwm & 2==1) r += swiz[(s.swizzle >> 2) & 3];
-		if(dwm & 4==1) r += swiz[(s.swizzle >> 4) & 3];
-		if(dwm & 8==1) r += swiz[(s.swizzle >> 6) & 3];
+		if(dwm & 1!=0) r += swiz[(s.swizzle >> 0) & 3];
+		if(dwm & 2!=0) r += swiz[(s.swizzle >> 2) & 3];
+		if(dwm & 4!=0) r += swiz[(s.swizzle >> 4) & 3];
+		if(dwm & 8!=0) r += swiz[(s.swizzle >> 6) & 3];
 		return r;
 	}
 

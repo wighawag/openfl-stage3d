@@ -217,8 +217,8 @@ class AGALMiniAssembler
 
 		if ( RegMap.map.get(reg[1])==null ) 
 			return false;
-
-		var em = { num:reg[2]!=null?reg[2]:"0", code:RegMap.map.get(reg[1]).code, mask:this.stringToMask(reg[3]) };
+		if (Std.parseInt(reg[2]) == null) reg[2] = "0";
+		var em = { num:reg[2] , code:RegMap.map.get(reg[1]).code, mask:this.stringToMask(reg[3]) }; 
 		pr.data.writeShort ( Std.parseInt(em.num) );
 		pr.data.writeByte ( em.mask );
 		pr.data.writeByte ( em.code );
@@ -346,6 +346,7 @@ class AGALMiniAssembler
 				return false;
 			}
 			var selindex = { x:0, y:1, z:2, w:3 };
+			
 			var em:Dynamic = { num:Std.parseInt(indexed[2])|0, code:RegMap.map.get(indexed[1]).code, swizzle:this.stringToSwizzle(indexed[5]), select:Reflect.getProperty(selindex, indexed[3]), offset:Std.parseInt(indexed[4])|0 };
 			pr.data.writeShort( em.num );
 			pr.data.writeByte( em.offset );

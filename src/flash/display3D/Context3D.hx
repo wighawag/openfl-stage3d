@@ -125,6 +125,7 @@ class Context3D
       }
 
 
+      GL.depthMask(true);
       GL.clearColor(red, green, blue, alpha);
       GL.clearDepth(depth);
       GL.clearStencil(stencil);
@@ -335,7 +336,8 @@ class Context3D
    public function setProgramConstantsFromMatrix(programType:Context3DProgramType, firstRegister:Int, matrix:Matrix3D, transposedMatrix:Bool = false):Void 
    {
       var locationName = getUniformLocationNameFromAgalRegisterIndex(programType, firstRegister);
-      setGLSLProgramConstantsFromMatrix(locationName,matrix,transposedMatrix);
+      //setGLSLProgramConstantsFromMatrix(locationName,matrix,transposedMatrix);
+      setProgramConstantsFromVector(programType, firstRegister, matrix.rawData, 16);
    }
 
    public function setProgramConstantsFromVector(programType:Context3DProgramType, firstRegister:Int, data:Vector<Float>, numRegisters:Int = -1):Void 
@@ -500,6 +502,40 @@ class Context3D
             }
 
 
+        }else if (Std.is (texture, flash.display3D.textures.CubeTexture)) {
+            GL.bindTexture(GL.TEXTURE_CUBE_MAP, cast(texture, flash.display3D.textures.CubeTexture).glTexture);
+
+            switch(wrap){
+                case Context3DWrapMode.CLAMP:
+                    GL.texParameteri(GL.TEXTURE_CUBE_MAP, GL.TEXTURE_WRAP_S, GL.CLAMP_TO_EDGE);
+                    GL.texParameteri(GL.TEXTURE_CUBE_MAP, GL.TEXTURE_WRAP_T, GL.CLAMP_TO_EDGE);
+                case Context3DWrapMode.REPEAT:
+                    GL.texParameteri(GL.TEXTURE_CUBE_MAP, GL.TEXTURE_WRAP_S, GL.REPEAT);
+                    GL.texParameteri(GL.TEXTURE_CUBE_MAP, GL.TEXTURE_WRAP_T, GL.REPEAT);
+            }
+
+
+            switch(filter){
+                case Context3DTextureFilter.LINEAR:
+                    GL.texParameteri(GL.TEXTURE_CUBE_MAP, GL.TEXTURE_MAG_FILTER, GL.LINEAR);
+
+                case Context3DTextureFilter.NEAREST:
+                    GL.texParameteri(GL.TEXTURE_CUBE_MAP, GL.TEXTURE_MAG_FILTER, GL.NEAREST);
+            }
+
+            //TODO CHECK the mipmap filters
+            switch(mipfilter){
+                case Context3DMipFilter.MIPLINEAR:
+                    GL.texParameteri(GL.TEXTURE_CUBE_MAP, GL.TEXTURE_MIN_FILTER, GL.LINEAR_MIPMAP_LINEAR);
+
+                case Context3DMipFilter.MIPNEAREST:
+                    GL.texParameteri(GL.TEXTURE_CUBE_MAP, GL.TEXTURE_MIN_FILTER, GL.NEAREST_MIPMAP_NEAREST);
+
+                case Context3DMipFilter.MIPNONE:
+                    GL.texParameteri(GL.TEXTURE_CUBE_MAP, GL.TEXTURE_MIN_FILTER, GL.NEAREST);
+
+            }
+
         }else{
             throw "Texture of type " + Type.getClassName(Type.getClass(texture)) + " not supported yet";
         }
@@ -536,43 +572,47 @@ class Context3D
     public function setGLSLTextureAt (locationName:String, texture:TextureBase, textureIndex : Int):Void {
 
         var location = GL.getUniformLocation (currentProgram.glProgram, locationName);
+        switch(textureIndex){
+            case 0 : GL.activeTexture (GL.TEXTURE0);
+            case 1 : GL.activeTexture (GL.TEXTURE1);
+            case 2 : GL.activeTexture (GL.TEXTURE2);
+            case 3 : GL.activeTexture (GL.TEXTURE3);
+            case 4 : GL.activeTexture (GL.TEXTURE4);
+            case 5 : GL.activeTexture (GL.TEXTURE5);
+            case 6 : GL.activeTexture (GL.TEXTURE6);
+            case 7 : GL.activeTexture (GL.TEXTURE7);
+            // TODO more?
+            default: throw "Does not support texture8 or more";
+        }
 
-        if (Std.is (texture, flash.display3D.textures.Texture)) {
+        if ( texture==null )
+        {
+            GL.bindTexture( GL.TEXTURE_2D, null );
+            GL.bindTexture( GL.TEXTURE_CUBE_MAP, null );
+            return;
+        } 
 
-            switch(textureIndex){
-                case 0 : GL.activeTexture (GL.TEXTURE0);
-                case 1 : GL.activeTexture (GL.TEXTURE1);
-                case 2 : GL.activeTexture (GL.TEXTURE2);
-                case 3 : GL.activeTexture (GL.TEXTURE3);
-                case 4 : GL.activeTexture (GL.TEXTURE4);
-                case 5 : GL.activeTexture (GL.TEXTURE5);
-                case 6 : GL.activeTexture (GL.TEXTURE6);
-                case 7 : GL.activeTexture (GL.TEXTURE7);
-                // TODO more?
-                default: throw "Does not support texture8 or more";
-            }
-
-
+        if ( Std.is (texture, flash.display3D.textures.Texture) )
+        {
             GL.bindTexture(GL.TEXTURE_2D, cast(texture, flash.display3D.textures.Texture).glTexture);
-
-        } else if(texture == null) {
-            GL.bindTexture(GL.TEXTURE_2D, null);
-        } else {
+            GL.uniform1i(location, textureIndex);
+            boundTextures.set(location, texture);
+        } 
+        else if ( Std.is(texture, CubeTexture) )
+        {        
+            GL.bindTexture( GL.TEXTURE_CUBE_MAP, cast(texture, flash.display3D.textures.CubeTexture).glTexture );
+            GL.uniform1i( location, textureIndex );
+            boundTextures.set(location, texture);
+        }
+        else {
             throw "Texture of type " + Type.getClassName(Type.getClass(texture)) + " not supported yet";
         }
 
-        GL.uniform1i(location, textureIndex);
-
-        boundTextures.set(location, texture);
-
-
-        if(texture != null){
-            var parameters = samplerParameters.get(location);
-            if(parameters != null){
-                setTextureParameters(texture, parameters[0], parameters[1], parameters[2]);
-            }else{
-                setTextureParameters(texture, Context3DWrapMode.REPEAT, Context3DTextureFilter.NEAREST, Context3DMipFilter.MIPNONE);
-            }
+        var parameters = samplerParameters.get(location);
+        if(parameters != null){
+            setTextureParameters(texture, parameters[0], parameters[1], parameters[2]);
+        }else{
+            setTextureParameters(texture, Context3DWrapMode.REPEAT, Context3DTextureFilter.NEAREST, Context3DMipFilter.MIPNONE);
         }
 
 
@@ -590,7 +630,10 @@ class Context3D
 
       if (buffer == null)
       {
-        GL.bindBuffer(GL.ARRAY_BUFFER, null);
+        if ( location > -1 ) {
+            GL.disableVertexAttribArray( location );
+            GL.bindBuffer(GL.ARRAY_BUFFER, null);
+        }
         return;
       }
 
